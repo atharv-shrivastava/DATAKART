@@ -21,6 +21,16 @@ if (!configurationError) {
 const unavailable = (message = 'Supabase is not configured. Check frontend/.env and restart the dev server.') =>
   ({ data: null, error: new Error(message) });
 
+const unavailableQuery = () => {
+  const query = {
+    select: () => query,
+    eq: () => query,
+    order: () => Promise.resolve(unavailable()),
+    maybeSingle: () => Promise.resolve(unavailable()),
+  };
+  return query;
+};
+
 export const supabase = client || {
   auth: {
     getSession: async () => unavailable(),
@@ -30,8 +40,8 @@ export const supabase = client || {
     signOut: async () => unavailable(),
   },
   from: () => ({
-    select: async () => unavailable(),
+    select: () => unavailableQuery(),
     insert: async () => unavailable(),
-    delete: async () => unavailable(),
+    delete: () => ({ eq: async () => unavailable() }),
   }),
 };
