@@ -25,10 +25,7 @@ create table public.products (
   country_of_origin text,
   fssai_license_number text,
   barcode text,
-  product_category text,
-  product_subcategory text,
   description text,
-  image_url text,
   active boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
