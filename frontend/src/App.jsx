@@ -6,8 +6,7 @@ const emptyForm = {
   packer: '', packer_address: '', marketer: '', marketer_address: '', importer: '', importer_address: '',
   net_quantity: '', unit: '', mrp: '', currency: 'INR', date_of_manufacture: '', date_of_packing: '',
   best_before: '', expiry_date: '', batch_number: '', consumer_care_phone: '', consumer_care_email: '',
-  country_of_origin: '', fssai_license_number: '', barcode: '', product_category: '', product_subcategory: '',
-  description: '', image_url: ''
+  country_of_origin: '', fssai_license_number: '', barcode: '', description: ''
 };
 
 const fields = [
@@ -18,7 +17,7 @@ const fields = [
   ['date_of_manufacture','Date of manufacture'], ['date_of_packing','Date of packing'], ['best_before','Best before'],
   ['expiry_date','Expiry date'], ['batch_number','Batch / lot number'], ['consumer_care_phone','Consumer care phone'],
   ['consumer_care_email','Consumer care email'], ['country_of_origin','Country of origin'], ['fssai_license_number','FSSAI licence'],
-  ['barcode','Barcode'], ['product_category','Category'], ['product_subcategory','Subcategory'], ['description','Description'], ['image_url','Image URL']
+  ['barcode','Barcode'], ['description','Description']
 ];
 
 function App() {
@@ -91,9 +90,9 @@ function App() {
     <main>
       <section className="panel lookup">
         <div className="panel-head"><div><h2>GTIN lookup</h2><p>Search the reference catalogue by GTIN, barcode, product, brand, or manufacturer.</p></div><input className="search" placeholder="Search…" value={query} onChange={e=>setQuery(e.target.value)}/></div>
-        <div className="table-wrap"><table><thead><tr><th>GTIN</th><th>Product</th><th>Brand</th><th>MRP</th><th>Net qty</th><th>Category</th><th>Admin</th></tr></thead><tbody>
-          {visibleProducts.map(p=><tr key={p.id}><td><code>{p.gtin}</code></td><td><strong>{p.product_name}</strong></td><td>{p.brand_name||'—'}</td><td>{p.currency} {p.mrp ?? '—'}</td><td>{p.net_quantity ?? '—'} {p.unit || ''}</td><td>{p.product_category||'—'}</td><td>{session ? <button className="danger" onClick={()=>deleteProduct(p.id)}>Delete</button> : 'Read only'}</td></tr>)}
-          {!visibleProducts.length && <tr><td colSpan="7" className="empty">No products found.</td></tr>}
+        <div className="table-wrap"><table><thead><tr><th>GTIN</th><th>Product</th><th>Brand</th><th>MRP</th><th>Net qty</th><th>Admin</th></tr></thead><tbody>
+          {visibleProducts.map(p=><tr key={p.id}><td><code>{p.gtin}</code></td><td><strong>{p.product_name}</strong></td><td>{p.brand_name||'—'}</td><td>{p.currency} {p.mrp ?? '—'}</td><td>{p.net_quantity ?? '—'} {p.unit || ''}</td><td>{session ? <button className="danger" onClick={()=>deleteProduct(p.id)}>Delete</button> : 'Read only'}</td></tr>)}
+          {!visibleProducts.length && <tr><td colSpan="6" className="empty">No products found.</td></tr>}
         </tbody></table></div>
       </section>
 
